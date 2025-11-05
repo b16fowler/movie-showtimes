@@ -7,4 +7,8 @@ title = html.find('title').text
 
 # print(html.prettify())
 # print(html.find_all('a'))
-print(html.get_text())
+# print(html.get_text())
+
+for tag in html.find_all('a'):
+    print(tag.get_text())
+
