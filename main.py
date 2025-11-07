@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import pprint
 
 '''
 BeautifulSoup notes:
@@ -25,7 +26,6 @@ def main():
     # Convert 'a' tag html elements into list of strings containing inner text
     text_list = []
     for item in a_tags:
-        # print(item.get_text())
         text_list.append(item.get_text())
 
     # Find lines that are just the theaters name, there's one after each movie title
@@ -41,7 +41,7 @@ def main():
         except IndexError:
             dictionary[text_list[title_index]] = text_list[title_index + 2: text_list.index(text_list[-1])] 
 
-    print(dictionary)
+    pprint.pprint(dictionary)
 
 if __name__ == "__main__":
     main()
