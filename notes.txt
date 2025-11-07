@@ -1,0 +1,7 @@
+BeautifulSoup notes:
+
+title = html.find("title").text
+
+print(html.prettify())
+print(html.find_all("a"))
+print(html.get_text())

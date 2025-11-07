@@ -4,25 +4,18 @@ import pprint
 import re
 
 '''
-BeautifulSoup notes:
+#################### TODO ####################
 
-title = html.find("title").text
-
-print(html.prettify())
-print(html.find_all("a"))
-print(html.get_text())
-'''
-
-'''
-# TODO
 Fix bug when organzing last movie's showtimes
 Send text/email?
-Regex for theater name detection
-Take parameters from terminal
+Take parameters from terminal?
+
+##############################################
 '''
 
 def main():
     scrape("https://www.amctheatres.com/movie-theatres/plainville/amc-southington-12/showtimes")
+
 
 def scrape(url):
     
