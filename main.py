@@ -14,11 +14,12 @@ Take parameters from terminal?
 '''
 
 def main():
+    # Scrape method takes url of desired theater to pull showtimes
     scrape("https://www.amctheatres.com/movie-theatres/plainville/amc-southington-12/showtimes")
 
 
 def scrape(url):
-    
+    # Pull theater's name from url
     theater = findTheaterName(url)
 
     # Get request to the theater's showtimes, then parse html
@@ -45,7 +46,8 @@ def scrape(url):
         try:
             # text_list[title_index] --> movie's title
             # text_list[title_index + 2:movie_indexes[index + 1]] --> slice of that movie's showtimes
-            dictionary[text_list[title_index]] = text_list[title_index + 2:movie_indexes[index + 1]] 
+            dictionary[text_list[title_index]] = text_list[title_index + 2:movie_indexes[index + 1]]
+        # IndexError catches last movie title
         except IndexError:
             dictionary[text_list[title_index]] = text_list[title_index + 2: text_list.index(text_list[-1])] 
 
@@ -59,7 +61,6 @@ def findTheaterName(url):
     theater_raw = url[match.start():match.end() - 1]
     # Capitialize the 'AMC' and first letter of theater name
     theater_raw = theater_raw[:5].upper() + theater_raw[5:]
-
     # Replace dashes from url with spaces
     theater = theater_raw.replace('-', ' ')
     
