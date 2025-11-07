@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import requests
-import re
 
 '''
 BeautifulSoup notes:
@@ -26,25 +25,23 @@ def main():
     # Convert 'a' tag html elements into list of strings containing inner text
     text_list = []
     for item in a_tags:
+        # print(item.get_text())
         text_list.append(item.get_text())
 
-
+    # Find lines that are just the theaters name, there's one after each movie title
     matches = [i for i, tag in enumerate(text_list) if tag == theater]
+    # Decrement by 1 to make list of movie titles
     movie_indexes = [item - 1 for item in matches]
-    print(movie_indexes)
     
-    
-    # TODO -> Later
-    '''
-    # Get request to the AMC Plainville showtimes, then parse html
-    response_plain = requests.get("https://www.amctheatres.com/movie-theatres/plainville/amc-plainville-20/showtimes")
-    html_plain = BeautifulSoup(response_plain.text, "html.parser")
+    dictionary = {}
+    # Use titles and indices to locate all showtimes for each movie 
+    for index, title_index in enumerate(movie_indexes):
+        try:
+            dictionary[text_list[title_index]] = text_list[title_index + 2:movie_indexes[index + 1]] 
+        except IndexError:
+            dictionary[text_list[title_index]] = text_list[title_index + 2: text_list.index(text_list[-1])] 
 
-    # Finds and prints inner text for all 'a' tags for Plainville theater
-    for tag in html_plain.find_all("a"):
-        print(tag.get_text())
-    '''
-
+    print(dictionary)
 
 if __name__ == "__main__":
     main()
